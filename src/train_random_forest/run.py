@@ -130,7 +130,7 @@ def go(args):
     # Now log the variable "mae" under the key "mae".
     # YOUR CODE HERE
     ######################################
-    logger.info(mae)
+    run.summary['mae'] = mae
 
     # Upload to W&B the feture importance visualization
     run.log(
