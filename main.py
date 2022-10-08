@@ -1,8 +1,11 @@
-import json
+"""
+Main file of the Pipeline.
+"""
 
-import mlflow
+import json
 import tempfile
 import os
+import mlflow
 import wandb
 import hydra
 from omegaconf import DictConfig
@@ -22,8 +25,10 @@ _steps = [
 
 # This automatically reads in the configuration
 @hydra.main(config_name='config')
-def go(config: DictConfig):
-
+def main(config: DictConfig):
+    """
+    Main method to run the pipeline.
+    """
     # Setup the wandb experiment. All runs will be grouped under this name
     os.environ["WANDB_PROJECT"] = config["main"]["project_name"]
     os.environ["WANDB_RUN_GROUP"] = config["main"]["experiment_name"]
@@ -103,8 +108,8 @@ def go(config: DictConfig):
             with open(rf_config, "w+") as fp:
                 json.dump(dict(config["modeling"]["random_forest"].items()), fp)  # DO NOT TOUCH
 
-            # NOTE: use the rf_config we just created as the rf_config parameter for the train_random_forest
-            # step
+            # NOTE: use the rf_config we just created as the rf_config parameter for the
+            # train_random_forest step
 
             ##################
             # Implement here #
@@ -140,4 +145,4 @@ def go(config: DictConfig):
 
 
 if __name__ == "__main__":
-    go()
+    main()
