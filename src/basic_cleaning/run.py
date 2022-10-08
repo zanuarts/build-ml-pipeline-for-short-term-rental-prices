@@ -41,7 +41,7 @@ def go(args):
 
     logger.info("Save result")
     filename = "clean_sample.csv"
-    df.to_csv(filename)
+    df.to_csv(filename, index=False)
 
     artifact = wandb.Artifact(
         args.output_artifact,
