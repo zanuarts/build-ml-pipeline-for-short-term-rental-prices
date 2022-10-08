@@ -7,13 +7,11 @@ import logging
 import wandb
 import pandas as pd
 
-
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
 
 
 def go(args):
-
     run = wandb.init(job_type="basic_cleaning")
     run.config.update(args)
 
@@ -30,7 +28,6 @@ def go(args):
 
     logger.info("Read artifact")
     df = pd.read_csv(artifact_path)
-
 
     logger.info("Drop outliers")
     idx = df['price'].between(args.min_price, args.max_price)
@@ -56,9 +53,7 @@ def go(args):
 
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(description="A very basic data cleaning")
-
 
     parser.add_argument(
         "--input_artifact",
@@ -101,7 +96,6 @@ if __name__ == "__main__":
         help="the maximum price to consider",
         required=True
     )
-
 
     args = parser.parse_args()
 

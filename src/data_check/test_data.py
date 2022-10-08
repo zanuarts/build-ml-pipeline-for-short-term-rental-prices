@@ -4,8 +4,7 @@ import scipy.stats
 
 
 def test_column_names(data):
-
-    expected_colums = [
+    expected_columns = [
         "id",
         "name",
         "host_id",
@@ -27,11 +26,10 @@ def test_column_names(data):
     these_columns = data.columns.values
 
     # This also enforces the same order
-    assert list(expected_colums) == list(these_columns)
+    assert list(expected_columns) == list(these_columns)
 
 
 def test_neighborhood_names(data):
-
     known_names = ["Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island"]
 
     neigh = set(data['neighbourhood_group'].unique())
@@ -49,10 +47,10 @@ def test_proper_boundaries(data: pd.DataFrame):
     assert np.sum(~idx) == 0
 
 
-def test_similar_neigh_distrib(data: pd.DataFrame, ref_data: pd.DataFrame, kl_threshold: float):
+def test_similar_neigh_distribution(data: pd.DataFrame, ref_data: pd.DataFrame, kl_threshold: float):
     """
     Apply a threshold on the KL divergence to detect if the distribution of the new data is
-    significantly different than that of the reference dataset
+    significantly different from that of the reference dataset
     """
     dist1 = data['neighbourhood_group'].value_counts().sort_index()
     dist2 = ref_data['neighbourhood_group'].value_counts().sort_index()
@@ -68,6 +66,7 @@ def test_row_count(data):
     Test to checks that the size of the dataset is reasonable (not too small, not too large).
     """
     assert 15000 < data.shape[0] < 1000000
+
 
 def test_price_range(data, min_price, max_price):
     """

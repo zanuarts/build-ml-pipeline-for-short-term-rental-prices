@@ -16,10 +16,10 @@ _steps = [
     "data_check",
     "data_split",
     "train_random_forest",
-    # NOTE: We do not include this in the steps so it is not run by mistake.
+    # NOTE: We do not include this in the steps, so it is not run by mistake.
     # You first need to promote a model export to "prod" before you can run this,
     # then you need to run this step explicitly
-#    "test_regression_model"
+    #    "test_regression_model"
 ]
 
 
@@ -29,7 +29,7 @@ def main(config: DictConfig):
     """
     Main method to run the pipeline.
     """
-    # Setup the wandb experiment. All runs will be grouped under this name
+    # Set up the wandb experiment. All runs will be grouped under this name
     os.environ["WANDB_PROJECT"] = config["main"]["project_name"]
     os.environ["WANDB_RUN_GROUP"] = config["main"]["experiment_name"]
 
@@ -102,7 +102,6 @@ def main(config: DictConfig):
             )
 
         if "train_random_forest" in active_steps:
-
             # NOTE: we need to serialize the random forest configuration into JSON
             rf_config = os.path.abspath("rf_config.json")
             with open(rf_config, "w+") as fp:
@@ -128,9 +127,7 @@ def main(config: DictConfig):
                 },
             )
 
-
         if "test_regression_model" in active_steps:
-
             ##################
             # Implement here #
             ##################

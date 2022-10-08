@@ -30,15 +30,15 @@ def go(args):
     test_dataset_path = run.use_artifact(args.test_dataset).file()
 
     # Read test dataset
-    X_test = pd.read_csv(test_dataset_path)
-    y_test = X_test.pop("price")
+    x_test = pd.read_csv(test_dataset_path)
+    y_test = x_test.pop("price")
 
     logger.info("Loading model and performing inference on test set")
     sk_pipe = mlflow.sklearn.load_model(model_local_path)
-    y_pred = sk_pipe.predict(X_test)
+    y_pred = sk_pipe.predict(x_test)
 
     logger.info("Scoring")
-    r_squared = sk_pipe.score(X_test, y_test)
+    r_squared = sk_pipe.score(x_test, y_test)
 
     mae = mean_absolute_error(y_test, y_pred)
 
